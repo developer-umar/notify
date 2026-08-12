@@ -4,9 +4,18 @@ import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import './App.css'
 import AppRoutes from './routes/AppRoutes'
+import { useDispatch } from 'react-redux'
+import { useEffect } from 'react'
+import { getCurrentUser } from './features/auth/redux/authSlice.js'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const dispatch = useDispatch();
+
+  useEffect(()=>{
+
+    dispatch(getCurrentUser());
+
+  },[dispatch])
 
 
   return (
