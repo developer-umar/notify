@@ -1,4 +1,8 @@
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { clearAuthState } from "../features/auth/redux/authSlice.js";
+
+const dispatch = useDispatch();
 
 const api = axios.create({
     baseURL: "https://notrify.onrender.com/api/v1",
@@ -41,8 +45,9 @@ api.interceptors.response.use(
                 return api(orignalRequest);
 
             } catch (refreshError) {
-                // aagr refersh token bhi expier ak rgay to login page pr leaao 
+                // aagr refersh token bhi expier ak rgay to login page pr leaao  ar puraane ssare states clear karo 
 
+               dispatch(clearAuthState);
                 window.location.replace("/login");
 
                 return Promise.reject(refreshError);

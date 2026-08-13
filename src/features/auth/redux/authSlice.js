@@ -102,7 +102,27 @@ const authSlice = createSlice({
         resetLogoutState: (state) => {
             state.logout.loading = false;
             state.logout.error = null;
+        },
+        // AGAR MAAN LO  AGAR USER LOGOUT HO GYA TO POORA AUTH USER RERSET KARAN HA SMJHE 
+        clearAuthState:(state)=>{
+            state.isAuthenticated = false;
+            state.user = null;
+
+            state.login.loading=false;
+            state.login.error=null;
+
+            state.register.loading = false;
+            state.register.error=null;
+
+            state.currentUser.loading=false;
+            state.currentUser.error=null;
+
+            state.logout.loading=false;
+            state.logout.error=null;
+
+
         }
+
     },
 
     extraReducers: (builder) => {
@@ -174,7 +194,7 @@ const authSlice = createSlice({
             })
             .addCase(logoutUser.fulfilled, (state) => {
                 state.logout.loading = false,
-                    state.loading.error = null,
+                    state.logout.error = null,
                     state.user = null,
                     state.isAuthenticated = false
             })
@@ -186,6 +206,6 @@ const authSlice = createSlice({
     }
 })
 
-export const {resetLoginState,resetRegisterState,resetCurrentUserState,resetLogoutState}=authSlice.actions;
+export const {resetLoginState,resetRegisterState,resetCurrentUserState,resetLogoutState,clearAuthState}=authSlice.actions;
 
 export default authSlice.reducer;
