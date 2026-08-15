@@ -1,8 +1,8 @@
 import axios from "axios";
-import { useDispatch } from "react-redux";
 import { clearAuthState } from "../features/auth/redux/authSlice.js";
+import { store } from "../app/store.js";
 
-const dispatch = useDispatch();
+
 
 const api = axios.create({
     baseURL: "https://notrify.onrender.com/api/v1",
@@ -47,7 +47,8 @@ api.interceptors.response.use(
             } catch (refreshError) {
                 // aagr refersh token bhi expier ak rgay to login page pr leaao  ar puraane ssare states clear karo 
 
-               dispatch(clearAuthState);
+               
+               store.dispatch(clearAuthState());   // ye isliye kia kuki store.js ek normal js file hai ar store  ko disractly import kar liye kuki ek normal object hai  isliye  kiya kuki  axios .js ye current ek recat copoent to hai to sislsiye usedsipatch()   hook nhi call kar skte kuki  axos.js koi functional copoent nhi haia r hook khali functional copoenet ek andr hi call kar skte hais mjhe isisliye eroro aega smjhe 
                 window.location.replace("/login");
 
                 return Promise.reject(refreshError);
