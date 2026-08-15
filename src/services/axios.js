@@ -1,6 +1,6 @@
 import axios from "axios";
-import { clearAuthState } from "../features/auth/redux/authSlice.js";
-import { store } from "../app/store.js";
+// import { clearAuthState } from "../features/auth/redux/authSlice.js";
+// import { store } from "../app/store.js";
 
 
 
@@ -48,7 +48,7 @@ api.interceptors.response.use(
                 // aagr refersh token bhi expier ak rgay to login page pr leaao  ar puraane ssare states clear karo 
 
                
-               store.dispatch(clearAuthState());   // ye isliye kia kuki store.js ek normal js file hai ar store  ko disractly import kar liye kuki ek normal object hai  isliye  kiya kuki  axios .js ye current ek recat copoent to hai to sislsiye usedsipatch()   hook nhi call kar skte kuki  axos.js koi functional copoent nhi haia r hook khali functional copoenet ek andr hi call kar skte hais mjhe isisliye eroro aega smjhe 
+            //    store.dispatch(clearAuthState());   // ye isliye kia kuki store.js ek normal js file hai ar store  ko disractly import kar liye kuki ek normal object hai  isliye  kiya kuki  axios .js ye current ek recat copoent to hai to sislsiye usedsipatch()   hook nhi call kar skte kuki  axos.js koi functional copoent nhi haia r hook khali functional copoenet ek andr hi call kar skte hais mjhe isisliye eroro aega smjhe 
                 window.location.replace("/login");
 
                 return Promise.reject(refreshError);
