@@ -56,6 +56,7 @@ export const logoutUser = createAsyncThunk("auth/logoutUser", async (_, thunkAPI
 const initialState = {
     user: null,
     isAuthenticated: false,
+    isAuthInitilized:false,           //jab app load hoga uske dara jo loader age ausek liye 
 
     login: {
         loading: false,
@@ -173,17 +174,19 @@ const authSlice = createSlice({
 
             })
             .addCase(getCurrentUser.fulfilled, (state, action) => {
-                state.currentUser.loading = false,
-                    state.currentUser.error = null,
-                    state.user = action.payload.data,
-                    state.isAuthenticated = true
+                state.currentUser.loading = false;
+                    state.currentUser.error = null;
+                    state.user = action.payload.data;
+                    state.isAuthInitilized=true;
+                    state.isAuthenticated = true;
             })
 
             .addCase(getCurrentUser.rejected, (state, action) => {
-                state.currentUser.loading = false,
-                    state.currentUser.error = action.payload,
-                    state.user = null,
-                    state.isAuthenticated = false
+                state.currentUser.loading = false;
+                    state.currentUser.error = action.payload;
+                    state.user = null;
+                    state.isAuthInitilized=true;
+                    state.isAuthenticated = false;
             })
 
             // logOut User 
