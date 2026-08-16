@@ -49,7 +49,7 @@ api.interceptors.response.use(
 
                
             //    store.dispatch(clearAuthState());   // ye isliye kia kuki store.js ek normal js file hai ar store  ko disractly import kar liye kuki ek normal object hai  isliye  kiya kuki  axios .js ye current ek recat copoent to hai to sislsiye usedsipatch()   hook nhi call kar skte kuki  axos.js koi functional copoent nhi haia r hook khali functional copoenet ek andr hi call kar skte hais mjhe isisliye eroro aega smjhe 
-                // window.location.replace("/login");
+                // window.location.replace("/login");  // ye file bakend pr request karta hai isliye hat da r fir ye al;ready protected routes me handle ho rha hai 
 
                 return Promise.reject(refreshError);
 

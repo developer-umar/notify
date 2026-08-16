@@ -23,7 +23,7 @@ const AppRoutes = () => {
 
       {/* koi unmatched url daale to  */}
       <Route element={<ProtectedRoutes />}  >
-        <Route path='/all-notes' element={<AllNotesPage />} />
+        <Route path='/notes' element={<AllNotesPage />} />
         <Route path='/pinned' element={<PinnedPage />} />
         <Route path='/profile' element={<ProfilePage />} />
 
