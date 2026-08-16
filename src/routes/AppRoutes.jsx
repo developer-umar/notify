@@ -16,6 +16,9 @@ const AppRoutes = () => {
       <Route path='/login' element={<Login />} />
       <Route path='/register' element={<Register />} />
 
+      {/* for unknown routes  */}
+      <Route path='*' element={<NotFound />} />
+
 
 
       {/* koi unmatched url daale to  */}
@@ -23,7 +26,7 @@ const AppRoutes = () => {
         <Route path='/all-notes' element={<AllNotesPage />} />
         <Route path='/pinned' element={<PinnedPage />} />
         <Route path='/profile' element={<ProfilePage />} />
-        <Route path='*' element={<NotFound />} />
+
 
       </Route>
 

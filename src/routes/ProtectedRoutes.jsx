@@ -26,7 +26,7 @@ const ProtectedRoutes = () => {
 
 // Hume ek state chahiye jo bataye: isAuthInitilized
 
-"Kya app ne authentication check complete kar liya?"
+// "Kya app ne authentication check complete kar liya?"
   if (!isAuthInitilized) {
     return <div className='bg-yellow-400 text-red-600 text-2xl'>Loading ......</div>
 
