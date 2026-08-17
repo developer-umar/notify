@@ -120,6 +120,7 @@ const authSlice = createSlice({
 
             state.logout.loading=false;
             state.logout.error=null;
+            state.isAuthInitilized=true;
 
 
         }
