@@ -43,7 +43,7 @@ const Login = () => {
 
         try {
             await dispatch(loginUser(formData)).unwrap()
-            navigate('/notes', { replace: true });
+            navigate('/all-notes', { replace: true });
 
 
 
