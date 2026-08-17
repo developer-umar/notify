@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { loginUser, resetLoginState } from '../redux/authSlice.js';
-import { useNavigate } from 'react-router-dom';
+import { replace, useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const [formData, setFormData] = useState({
@@ -11,16 +11,31 @@ const Login = () => {
 
     const dispatch = useDispatch();
     const { loading, error } = useSelector((state) => state.auth.login);
+    const { isAuthenticated, isAuthInitilized } = useSelector((state) => state.auth);
     const navigate = useNavigate();
 
-    useEffect(()=>{
 
-        return()=>{
-            dispatch(resetLoginState())
-            
+    useEffect(() => {
+
+        if (!isAuthInitilized) {
+            return;
         }
 
-    },[dispatch])
+        if (isAuthenticated) {
+            navigate("/all-notes", { replace: true });
+        }
+
+
+    }, [isAuthInitilized, isAuthenticated, navigate]);
+
+    useEffect(() => {
+
+        return () => {
+            dispatch(resetLoginState())
+
+        }
+
+    }, [dispatch])
 
 
 
@@ -52,6 +67,14 @@ const Login = () => {
 
         }
 
+    }
+
+    if (!isAuthInitilized) {
+        return (
+            <div>
+                Checking authentication...
+            </div>
+        )
     }
 
     return (
