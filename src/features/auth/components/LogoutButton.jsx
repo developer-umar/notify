@@ -1,11 +1,14 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {  logoutUser } from '../redux/authSlice'
+import { useNavigate } from 'react-router-dom'
 
 const LogoutButton = () => {
 
     const {loading,error} = useSelector((state)=>state.auth.logout)
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const navigate = useNavigate()
+
 
 
 
@@ -13,6 +16,7 @@ const LogoutButton = () => {
         try {
 
             await dispatch(logoutUser()).unwrap();
+            navigate('/login')
             
         } catch (error) {
             console.log(error);
