@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {  logoutUser } from '../redux/authSlice'
-import { useNavigate } from 'react-router-dom'
+import { replace, useNavigate } from 'react-router-dom'
 
 const LogoutButton = () => {
 
@@ -16,7 +16,7 @@ const LogoutButton = () => {
         try {
 
             await dispatch(logoutUser()).unwrap();
-            navigate('/');
+            navigate('/',{replace:true});
             
         } catch (error) {
             console.log(error);
@@ -27,7 +27,7 @@ const LogoutButton = () => {
   return (
     <div>
 
-        <button onClick={handleLogout} disabled={loading} className="border px-3 py-2 rounded">
+        <button onClick={handleLogout} disabled={loading} className="border px-3 py-2 rounded bg-red-600">
 
             {loading  ? "Logging Out ..........." :"Logout"}
 
