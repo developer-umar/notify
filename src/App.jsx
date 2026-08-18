@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import { getCurrentUser } from './features/auth/redux/authSlice.js'
 
+
 function App() {
   const dispatch = useDispatch();
 
@@ -21,6 +22,7 @@ function App() {
   return (
     <>
     <div className='bg-amber-400 text-6xl '>My Notes APP </div>
+    
 
     <AppRoutes/>
     

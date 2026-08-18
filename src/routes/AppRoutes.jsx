@@ -8,13 +8,15 @@ import Login from '../features/auth/pages/Login'
 import NotFound from '../features/auth/pages/NotFound'
 import ProtectedRoutes from './ProtectedRoutes'
 import Allnotes from '../features/notes/pages/Allnotes'
+import HomePage from '../pages/HomePage'
 
 const AppRoutes = () => {
   return (
     <Routes>
 
-      <Route path='/' element={<Login />} />
+      <Route path='/login' element={<Login />} />
       <Route path='/register' element={<Register />} />
+      <Route path='/' element={<HomePage/>} />
 
     
 

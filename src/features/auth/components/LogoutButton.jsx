@@ -16,7 +16,7 @@ const LogoutButton = () => {
         try {
 
             await dispatch(logoutUser()).unwrap();
-            navigate('/',{replace:true});
+            navigate('/login',{replace:true});
             
         } catch (error) {
             console.log(error);
