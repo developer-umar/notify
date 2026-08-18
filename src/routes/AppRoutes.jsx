@@ -16,8 +16,7 @@ const AppRoutes = () => {
       <Route path='/' element={<Login />} />
       <Route path='/register' element={<Register />} />
 
-      {/* for unknown routes  */}
-      <Route path='*' element={<NotFound />} />
+    
 
 
 
@@ -29,6 +28,9 @@ const AppRoutes = () => {
 
 
       </Route>
+
+        {/* for unknown routes   isko hamesha last em hi rkhna agar oopr rakhoge to  phle ye url se match kar lege uske necche wale koi bhi page pr redirect nhi ho paenge*/}
+      <Route path='*' element={<NotFound />} />
 
 
 
