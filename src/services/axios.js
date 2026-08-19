@@ -35,22 +35,25 @@ api.interceptors.response.use(
         if (error.response?.status === 401 && !orignalRequest._retry && orignalRequest.url !== "/user/refresh-token") {
 
             orignalRequest._retry = true;             //custome object add kai ham logo check  flag
-            
+            console.log("401 received:", orignalRequest.url, error.response?.status); //
             try {
 
-
+                console.log("Calling refresh API...");//
                 await refreshApi.post("/user/refresh-token");
                 // refrsh token waali  api succesfull ho jagei to  to ckkies set karedga backend to for agaain orignal requets retry karenege to lgin ho ajega smjhe 
-
+                console.log("Refresh successful");      //
                 return api(orignalRequest);
 
             } catch (refreshError) {
                 // aagr refersh token bhi expier ak rgay to login page pr leaao  ar puraane ssare states clear karo 
 
-               
-            //    store.dispatch(clearAuthState());   // ye isliye kia kuki store.js ek normal js file hai ar store  ko disractly import kar liye kuki ek normal object hai  isliye  kiya kuki  axios .js ye current ek recat copoent to hai to sislsiye usedsipatch()   hook nhi call kar skte kuki  axos.js koi functional copoent nhi haia r hook khali functional copoenet ek andr hi call kar skte hais mjhe isisliye eroro aega smjhe 
-                // window.location.replace("/login");  // ye file bakend pr request karta hai isliye hat da r fir ye al;ready protected routes me handle ho rha hai 
 
+                //    store.dispatch(clearAuthState());   // ye isliye kia kuki store.js ek normal js file hai ar store  ko disractly import kar liye kuki ek normal object hai  isliye  kiya kuki  axios .js ye current ek recat copoent to hai to sislsiye usedsipatch()   hook nhi call kar skte kuki  axos.js koi functional copoent nhi haia r hook khali functional copoenet ek andr hi call kar skte hais mjhe isisliye eroro aega smjhe 
+                // window.location.replace("/login");  // ye file bakend pr request karta hai isliye hat da r fir ye al;ready protected routes me handle ho rha hai 
+                console.log(
+                    "REFRESH FAILED:",
+                    refreshError.response?.data
+                );
                 return Promise.reject(refreshError);
 
 
