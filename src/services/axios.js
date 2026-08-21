@@ -7,7 +7,7 @@ import axios from "axios";
 const api = axios.create({
     baseURL: "https://notrify.onrender.com/api/v1",
     withCredentials: true,               // it will sent cookies  automatically 
-    
+    // yha headers isliye nhi lagaya  kuki headers me  application/json  hai  islsiye lekin rgeistsration me multipart-gor , datta bhej rahe is liye eroro aarah tha smjhe to islsiye headers hta diy ar baaki headerds apne aap axios lga deta hai 
 })
 
 // Separate axios instance for refresh request
