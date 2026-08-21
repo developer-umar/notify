@@ -9,14 +9,21 @@ import NotFound from '../features/auth/pages/NotFound'
 import ProtectedRoutes from './ProtectedRoutes'
 import Allnotes from '../features/notes/pages/Allnotes'
 import HomePage from '../pages/HomePage'
+import PublicRoutes from './PublicRoutes'
 
 const AppRoutes = () => {
   return (
     <Routes>
-
+      {/* public routes  */}
+      
+      <Route element={<PublicRoutes/>}>
       <Route path='/login' element={<Login />} />
       <Route path='/register' element={<Register />} />
       <Route path='/' element={<HomePage/>} />
+
+      </Route>
+
+     
 
     
 
