@@ -48,7 +48,7 @@ function Allnotes() {
 
             {
               notes.map((note) => (
-                <div key={note_id} className='border p-3 rounded'>
+                <div key={note._id} className='border p-3 rounded'>
                   <h2 className='font-semibold'>{note.title}</h2>
 
                   <p className='mt-1'>{note.content}</p>
