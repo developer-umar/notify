@@ -4,7 +4,7 @@ import { getAllNotesApi } from "../api/noteApi";
 export const getAllnotes = createAsyncThunk("notes/getAllnotes",async(_,thunkAPI)=>{
 
     try {
-        return await  getAllNotesApi();
+        return  await  getAllNotesApi();
         
     } catch (error) {
         
@@ -43,7 +43,7 @@ const noteSlice = createSlice({
 
         })
         .addCase(getAllnotes.fulfilled,(state,action)=>{
-            state.getAllNotes.loading=true;
+            state.getAllNotes.loading=false;
             state.getAllNotes.error=null;
             state.notes =action.payload.data;
 
