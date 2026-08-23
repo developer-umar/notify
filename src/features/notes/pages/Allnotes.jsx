@@ -44,7 +44,7 @@ function Allnotes() {
 
         ) : (
 
-          <div>
+          <div  className ="space-y-3">
 
             {
               notes.map((note) => (
