@@ -10,6 +10,7 @@ import ProtectedRoutes from './ProtectedRoutes'
 import Allnotes from '../features/notes/pages/Allnotes'
 import HomePage from '../pages/HomePage'
 import PublicRoutes from './PublicRoutes'
+import AppLayout from '../layout/AppLayout'
 
 const AppRoutes = () => {
   return (
@@ -31,11 +32,12 @@ const AppRoutes = () => {
 
       {/* koi unmatched url daale to  */}
       <Route element={<ProtectedRoutes />}  >
+      <Route   element={<AppLayout/>} >
         <Route path='/all-notes' element={<Allnotes />} />
         <Route path='/pinned' element={<PinnedPage />} />
         <Route path='/profile' element={<ProfilePage />} />
 
-
+      </Route>
       </Route>
 
         {/* for unknown routes   isko hamesha last em hi rkhna agar oopr rakhoge to  phle ye url se match kar lege uske necche wale koi bhi page pr redirect nhi ho paenge*/}

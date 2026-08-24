@@ -1,5 +1,4 @@
 import React from 'react'
-import LogoutButton from '../../auth/components/LogoutButton'
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { getAllnotes } from '../redux/notesSlice';
@@ -54,7 +53,7 @@ function Allnotes() {
                   <p className='mt-1'>{note.content}</p>
 
                   {note.isPinned && (
-                    <span className='text-sm'>📌 Pinned</span>
+                    <span className='text-sm'>📌</span>
                   )}
 
                 </div>

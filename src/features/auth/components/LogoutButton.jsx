@@ -1,9 +1,9 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {  logoutUser } from '../redux/authSlice'
-import { replace, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
-const LogoutButton = () => {
+export const LogoutButton = () => {
 
     const {loading,error} = useSelector((state)=>state.auth.logout)
     const dispatch = useDispatch();
@@ -43,4 +43,4 @@ const LogoutButton = () => {
   )
 }
 
-export default LogoutButton
+
