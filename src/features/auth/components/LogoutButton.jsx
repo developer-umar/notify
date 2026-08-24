@@ -32,7 +32,7 @@ export const LogoutButton = () => {
             {loading  ? "Logging Out ..........." :"Logout"}
 
             {error && (
-             <p className='text-red-500'>
+             <p className='text-yellow-200'>
                 {error}
              </p>
             )}

@@ -1,8 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { LogoutButton } from "../features/auth/components/LogoutButton"
+import { useSelector } from 'react-redux'
 
 const Navbar = () => {
+  const { user } = useSelector((state) => state.auth);
+
   return (
     <nav className="border-b p-3">
       <div className="max-w-6xl mx-auto flex items-center justify-between">
@@ -53,7 +56,12 @@ const Navbar = () => {
             to="/profile"
             className="w-9 h-9 border rounded-full flex items-center justify-center"
           >
-            U
+
+
+            {user?.avatar ? (<img src={user.avatar} alt="Avatar"
+              className="w-full h-full object-cover" />) : (<span>U</span>)}
+
+
           </Link>
 
         </div>
