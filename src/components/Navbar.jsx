@@ -5,11 +5,11 @@ import { LogoutButton } from "../features/auth/components/LogoutButton"
 const Navbar = () => {
   return (
     <nav className="border-b p-3">
-      <div>
+      <div className="max-w-6xl mx-auto flex items-center justify-between">
 
 
         {/* left div for logo  */}
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
+        <div >
           <Link to={"/all-notes"}>
             Notrify
 
