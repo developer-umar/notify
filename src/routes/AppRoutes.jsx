@@ -11,6 +11,7 @@ import Allnotes from '../features/notes/pages/Allnotes'
 import HomePage from '../pages/HomePage'
 import PublicRoutes from './PublicRoutes'
 import AppLayout from '../layout/AppLayout'
+import CreateNote from '../features/notes/pages/CreateNote'
 
 const AppRoutes = () => {
   return (
@@ -36,6 +37,7 @@ const AppRoutes = () => {
         <Route path='/all-notes' element={<Allnotes />} />
         <Route path='/pinned' element={<PinnedPage />} />
         <Route path='/profile' element={<ProfilePage />} />
+        <Route path='/create-note' element={<CreateNote/>} />
 
       </Route>
       </Route>
