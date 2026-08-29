@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { createNoteApi, getAllNotesApi } from "../api/noteApi";
+import { createNoteApi, getAllNotesApi, getNoteByIdApi } from "../api/noteApi";
 
 
 export const getAllnotes = createAsyncThunk("notes/getAllnotes",async(_,thunkAPI)=>{
@@ -28,6 +28,19 @@ export const createNote = createAsyncThunk("notes/createnotes",async(noteData,th
     }
 
 })
+// get note by id 
+
+export const getNotebyId = createAsyncThunk(async(getNotebyId,thunkAPI)=>{
+
+    try {
+       return  await getNoteByIdApi(getNotebyId);
+        
+    } catch (error) {
+       return  thunkAPI.rejectWithValue(error.response?.data?.message ||"Something went wrong");
+        
+    }
+
+})
 
 
 
@@ -35,12 +48,17 @@ export const createNote = createAsyncThunk("notes/createnotes",async(noteData,th
 
 const initialState = {
     notes:[],
+    selectedNote:null,
     getAllNotes:{
         loading:false,
         error:null
     },
 
     createNote:{
+        loading:false,
+        error:null
+    },
+    getNotebyId:{
         loading:false,
         error:null
     }
@@ -90,6 +108,25 @@ const noteSlice = createSlice({
         .addCase(createNote.rejected,(state,action)=>{
             state.createNote.loading=false;
             state.createNote.error=action.payload;
+        })
+
+
+        .addCase(getNotebyId.pending,(state)=>{
+
+            state.getNotebyId.loading=true;
+            state.getNotebyId.error=null;
+
+        })
+        .addCase(getNotebyId.fulfilled,(state,action)=>{
+            state.getNotebyId.loading=false;
+            state.getNotebyId.error=null;
+
+            state.selectedNote=action.payload.data;
+
+        })
+        .addCase(getNotebyId.rejected,(state,action)=>{
+            state.getNotebyId.loading=false;
+            state.getNotebyId.error=action.payload;
         })
 
 

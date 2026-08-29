@@ -12,6 +12,7 @@ import HomePage from '../pages/HomePage'
 import PublicRoutes from './PublicRoutes'
 import AppLayout from '../layout/AppLayout'
 import CreateNote from '../features/notes/pages/CreateNote'
+import NoteDetails from '../features/notes/pages/NoteDetails'
 
 const AppRoutes = () => {
   return (
@@ -38,6 +39,7 @@ const AppRoutes = () => {
         <Route path='/pinned' element={<PinnedPage />} />
         <Route path='/profile' element={<ProfilePage />} />
         <Route path='/create-note' element={<CreateNote/>} />
+        <Route  path='/notes/:noteId'  element={<NoteDetails/>} />
 
       </Route>
       </Route>

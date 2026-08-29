@@ -2,6 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { getAllnotes } from '../redux/notesSlice';
+import NoteCard from '../components/NoteCard';
 
 
 function Allnotes() {
@@ -47,16 +48,9 @@ function Allnotes() {
 
             {
               notes.map((note) => (
-                <div key={note._id} className='border p-3 rounded'>
-                  <h2 className='font-semibold'>{note.title}</h2>
 
-                  <p className='mt-1'>{note.content}</p>
 
-                  {note.isPinned && (
-                    <span className='text-sm'>📌</span>
-                  )}
-
-                </div>
+               <NoteCard  key={note._id}  note={note} />
 
               ))
             }
