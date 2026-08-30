@@ -136,7 +136,7 @@ const noteSlice = createSlice({
 });
 
 
-// export default noteSlice.reducer;
+export default noteSlice.reducer;
 
 // const notes = [{id:1,name:"umar"},{id:2,name:"abdul rehman"}];
 
