@@ -30,7 +30,7 @@ export const createNote = createAsyncThunk("notes/createnotes",async(noteData,th
 })
 // get note by id 
 
-export const getNotebyId = createAsyncThunk(async(getNotebyId,thunkAPI)=>{
+export const getNotebyId = createAsyncThunk("notes/getNotebyId",async(getNotebyId,thunkAPI)=>{
 
     try {
        return  await getNoteByIdApi(getNotebyId);
@@ -115,6 +115,7 @@ const noteSlice = createSlice({
 
             state.getNotebyId.loading=true;
             state.getNotebyId.error=null;
+            state.selectedNote=null;
 
         })
         .addCase(getNotebyId.fulfilled,(state,action)=>{
@@ -127,6 +128,7 @@ const noteSlice = createSlice({
         .addCase(getNotebyId.rejected,(state,action)=>{
             state.getNotebyId.loading=false;
             state.getNotebyId.error=action.payload;
+            state.selectedNote=null;
         })
 
 
@@ -134,4 +136,18 @@ const noteSlice = createSlice({
 });
 
 
-export default noteSlice.reducer;
+// export default noteSlice.reducer;
+
+// const notes = [{id:1,name:"umar"},{id:2,name:"abdul rehman"}];
+
+// let ans=1 ;
+// export  const getelementbyId = (id)=>{
+
+//      ans = notes.filter((note)=>{
+//     return  note.id == id
+// })
+
+// }
+
+// getelementbyId(2);
+// console.log(ans);
