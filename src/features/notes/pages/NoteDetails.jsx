@@ -2,7 +2,7 @@ import React from 'react'
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom';
-import { getNotebyId } from '../redux/notesSlice';
+import { getNotebyId } from '../redux/notesSlice.js';
 
 const NoteDetails = () => {
     const {noteId} = useParams();
