@@ -46,7 +46,7 @@ const Navbar = () => {
 
           </Link>
 
-          <button onClick={()=>navigate('/create-note')} className='cursor-default'>
+          <button onClick={()=>navigate('/create-note')} className='cursor-pointer'>
             create
           </button>
 
