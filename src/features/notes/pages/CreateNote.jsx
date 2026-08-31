@@ -41,7 +41,7 @@ const CreateNote = () => {
 
             <h1 className="text-xl font-semibold mb-4">Create note Page</h1>
 
-            {error && <p className='bg-red-500 text-amber-50'>{error}</p>};
+            {error && <p className='bg-red-500 text-amber-50'>{error}</p>}
 
 
             <form onSubmit={handleSubmit}>
