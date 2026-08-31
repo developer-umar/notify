@@ -1,10 +1,11 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { LogoutButton } from "../features/auth/components/LogoutButton"
 import { useSelector } from 'react-redux'
 
 const Navbar = () => {
   const { user } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
 
   return (
     <nav className="border-b p-3">
@@ -45,7 +46,7 @@ const Navbar = () => {
 
           </Link>
 
-          <button>
+          <button onClick={()=>navigate('/create-note')}>
             create
           </button>
 
