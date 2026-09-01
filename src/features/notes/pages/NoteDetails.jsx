@@ -3,6 +3,8 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom';
 import { getNotebyId, togglePinnote } from '../redux/notesSlice.js';
+import { BsBookmarkFill } from 'react-icons/bs';
+import { FiBookmark } from 'react-icons/fi';
 
 const NoteDetails = () => {
     const { noteId } = useParams();
