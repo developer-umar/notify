@@ -2,39 +2,45 @@ import React from 'react'
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom';
-import { getNotebyId } from '../redux/notesSlice.js';
+import { getNotebyId, togglePinnote } from '../redux/notesSlice.js';
 
 const NoteDetails = () => {
-    const {noteId} = useParams();
-    const {selectedNote,getNotebyId:{loading,error}} = useSelector((state)=>state.notes);
+    const { noteId } = useParams();
+    const { selectedNote, getNotebyId: { loading, error }, togglePinNote: { loading: pinLoading, error: pinError } } = useSelector((state) => state.notes);
     const dispatch = useDispatch();
 
 
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(getNotebyId(noteId));
 
-    },[dispatch,noteId]);
+    }, [dispatch, noteId]);
 
+    const handlePintoggle =()=>{
 
-    if(loading){
-      return   <p className='bg-amber-300 text-blue-600'>Loading note....</p>
-    }
-
-    if(error){
-       return   <p className='bg-red-500'>{error}</p>
-    }
-
-    if(!selectedNote){
-        return  <p>note not found</p>
+        togglePinnote(noteId);
 
     }
 
 
+    if (loading) {
+        return <p className='bg-amber-300 text-blue-600'>Loading note....</p>
+    }
+
+    if (error) {
+        return <p className='bg-red-500'>{error}</p>
+    }
+
+    if (!selectedNote) {
+        return <p>note not found</p>
+
+    }
 
 
-  return (
-   
-    <div className="max-w-3xl mx-auto p-4">
+
+
+    return (
+
+        <div className="max-w-3xl mx-auto p-4">
 
             <div className="border p-5 rounded">
 
@@ -44,13 +50,36 @@ const NoteDetails = () => {
                         {selectedNote.title}
                     </h1>
 
-                    {selectedNote.isPinned && (
-                        <span>
-                            📌
-                        </span>
-                    )}
+                    <button
+                        type='button'
+                        onClick={handlePintoggle}
+                        disabled={pinLoading}
+
+                        title={
+                            selectedNote.isPinned ? "Unpin note" : "Pin note"
+                        }
+                        className={`p-2 rounded-full border ${selectedNote.isPinned
+                            ? "text-yellow-500"
+                            : "text-gray-500"
+                            }`}
+
+                    >
+                        {selectedNote.isPinned ? (<BsBookmarkFill size={20} />) :
+
+                            (<FiBookmark size={20} />)
+                        }
+
+                    </button>
+
+
 
                 </div>
+
+                {pinError && (
+                    <p className="text-red-500 mt-2">
+                        {pinError}
+                    </p>
+                )}
 
 
                 <p className="mt-4 whitespace-pre-wrap">
@@ -63,7 +92,7 @@ const NoteDetails = () => {
         </div>
 
 
-  );
+    );
 }
 
 export default NoteDetails
