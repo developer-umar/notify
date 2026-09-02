@@ -19,7 +19,7 @@ const NoteDetails = () => {
 
     const handlePintoggle =()=>{
        
-        togglePinnote(noteId);
+        dispatch(togglePinnote(noteId));
         console.log("handle toggle pinned ")
 
     }
