@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { createNoteApi, getAllNotesApi, getNoteByIdApi, togglePinNoteApi } from "../api/noteApi";
+import { createNoteApi, deletNoteApi, getAllNotesApi, getNoteByIdApi, togglePinNoteApi } from "../api/noteApi";
 
 
 export const getAllnotes = createAsyncThunk("notes/getAllnotes", async (_, thunkAPI) => {
@@ -57,6 +57,17 @@ export const togglePinnote = createAsyncThunk("notes/togglePinnote", async (note
 })
 
 
+export const deleteNote = createAsyncThunk(async(noteId,thunkAPI)=>{
+
+    try {
+        return await  deletNoteApi(noteId);
+        
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error.response?.data?.message || "Something went wrong");
+    }
+
+})
+
 
 
 
@@ -80,6 +91,10 @@ const initialState = {
         loading: false,
         error: null
 
+    },
+    deletenote:{
+        loading:false,
+        error:null
     }
 
 }
@@ -181,6 +196,23 @@ const noteSlice = createSlice({
             .addCase(togglePinnote.rejected,(state,action)=>{
                 state.togglePinNote.loading=false;
                 state.togglePinNote.error=action.payload;
+            })
+
+            // delete note 
+
+
+            .addCase(deleteNote.pending,(state)=>{
+                state.deletenote.loading=true;
+                state.deletenote.error=null;
+            })
+            .addCase(deleteNote.fulfilled,(state)=>{
+                state.deletenote.loading=false;                 //yha delete note me  manual update nhi karenege kuki  delete karn eke baad automatically wo all notes page pr chalaa jaega smjhe  wha apane aap hi usfefect se new list fetch hog to dleeted notes shso w nhi hog a smjhe 
+                state.deletenote.error=null;
+            })
+            .addCase(deleteNote.rejected,(state,action)=>{
+                state.deletenote.loading=false;
+                state.deletenote.error = action.payload;
+                
             })
 
 

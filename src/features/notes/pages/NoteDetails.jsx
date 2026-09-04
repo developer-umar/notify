@@ -1,15 +1,17 @@
 import React from 'react'
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom';
-import { getNotebyId, togglePinnote } from '../redux/notesSlice.js';
+import { useNavigate, useParams } from 'react-router-dom';
+import { deleteNote, getNotebyId, togglePinnote } from '../redux/notesSlice.js';
 import { BsBookmarkFill } from 'react-icons/bs';
 import { FiBookmark } from 'react-icons/fi';
 
 const NoteDetails = () => {
     const { noteId } = useParams();
-    const { selectedNote, getNotebyId: { loading, error }, togglePinNote: { loading: pinLoading, error: pinError } } = useSelector((state) => state.notes);
+    const navigate = useNavigate();
+    const { selectedNote, getNotebyId: { loading, error }, togglePinNote: { loading: pinLoading, error: pinError }, deletenote: { loading: deleteLoading, error: deleteError } } = useSelector((state) => state.notes);
     const dispatch = useDispatch();
+
 
 
     useEffect(() => {
@@ -17,10 +19,16 @@ const NoteDetails = () => {
 
     }, [dispatch, noteId]);
 
-    const handlePintoggle =()=>{
-       
+    const handlePintoggle = () => {
+
         dispatch(togglePinnote(noteId));
         console.log("handle toggle pinned ")
+
+    }
+
+    const handleDeleteNote = async () => {
+        await dispatch(deleteNote(noteId)).unwrap();
+        navigate('/all-notes', { replace: true });
 
     }
 
@@ -83,6 +91,38 @@ const NoteDetails = () => {
                         {pinError}
                     </p>
                 )}
+
+
+                {/* delete button */}
+
+                <div className=''>
+
+                    <button
+                        type='button'
+                        onClick={handleDeleteNote}
+                        disabled={deleteLoading}
+                        className='border px-3 py-2 rounded'>
+
+
+                        {deleteLoading ? 'deleting note...' : ' delete note'}
+
+                    </button>
+
+                    {deleteError && (
+                        <p className="text-red-500 mt-2">
+                            {deleteError}
+                        </p>
+                    )}
+
+
+
+                </div>
+
+
+
+                <div>
+
+                </div>
 
 
                 <p className="mt-4 whitespace-pre-wrap">
