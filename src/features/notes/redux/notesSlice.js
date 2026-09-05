@@ -57,7 +57,7 @@ export const togglePinnote = createAsyncThunk("notes/togglePinnote", async (note
 })
 
 
-export const deleteNote = createAsyncThunk(async(noteId,thunkAPI)=>{
+export const deleteNote = createAsyncThunk("notes/deletenote",async(noteId,thunkAPI)=>{
 
     try {
         return await  deletNoteApi(noteId);
