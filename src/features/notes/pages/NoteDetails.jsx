@@ -7,7 +7,7 @@ import { BsBookmarkFill } from 'react-icons/bs';
 import { FiBookmark } from 'react-icons/fi';
 
 const NoteDetails = () => {
-    const { successDeleted, setsuccessDeleted } = useState(false); //state for handling popup notification after delete
+    const [successDeleted, setsuccessDeleted ] = useState(false); //state for handling popup notification after delete
     const { noteId } = useParams();
     const navigate = useNavigate();
     const { selectedNote, getNotebyId: { loading, error }, togglePinNote: { loading: pinLoading, error: pinError }, deletenote: { loading: deleteLoading, error: deleteError } } = useSelector((state) => state.notes);
@@ -116,7 +116,7 @@ const NoteDetails = () => {
 
                     {/* delete button */}
 
-                    <div className=''>
+                    <div className='mt-4'>
 
                         <button
                             type='button'
