@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { createNoteApi, deletNoteApi, getAllNotesApi, getNoteByIdApi, togglePinNoteApi } from "../api/noteApi";
+import { createNoteApi, deletNoteApi, getAllNotesApi, getNoteByIdApi, togglePinNoteApi, updateNoteApi } from "../api/noteApi";
 
 
 export const getAllnotes = createAsyncThunk("notes/getAllnotes", async (_, thunkAPI) => {
@@ -57,12 +57,26 @@ export const togglePinnote = createAsyncThunk("notes/togglePinnote", async (note
 })
 
 
-export const deleteNote = createAsyncThunk("notes/deletenote",async(noteId,thunkAPI)=>{
+export const deleteNote = createAsyncThunk("notes/deletenote", async (noteId, thunkAPI) => {
 
     try {
-        return await  deletNoteApi(noteId);
-        
+        return await deletNoteApi(noteId);
+
     } catch (error) {
+        return thunkAPI.rejectWithValue(error.response?.data?.message || "Something went wrong");
+    }
+
+})
+// update note api 
+
+export const updateNote = createAsyncThunk("notes/update-notes", async (noteId, noteData) => {
+
+    try {
+
+        return await updateNoteApi(noteId, noteData);
+
+    } catch (error) {
+
         return thunkAPI.rejectWithValue(error.response?.data?.message || "Something went wrong");
     }
 
@@ -92,9 +106,13 @@ const initialState = {
         error: null
 
     },
-    deletenote:{
-        loading:false,
-        error:null
+    deletenote: {
+        loading: false,
+        error: null
+    },
+    updatenote: {
+        loading: false,
+        error: null
     }
 
 }
@@ -168,13 +186,13 @@ const noteSlice = createSlice({
             // important pinned notes  important logic concept
 
             .addCase(togglePinnote.pending, (state) => {
-                state.togglePinNote.loading=true;
-                state.togglePinNote.error=null;
+                state.togglePinNote.loading = true;
+                state.togglePinNote.error = null;
 
             })
-            .addCase(togglePinnote.fulfilled,(state,action)=>{
-                state.togglePinNote.loading=false;
-                state.togglePinNote.error=null;
+            .addCase(togglePinnote.fulfilled, (state, action) => {
+                state.togglePinNote.loading = false;
+                state.togglePinNote.error = null;
 
                 const updatedNote = action.payload.data;
 
@@ -182,36 +200,64 @@ const noteSlice = createSlice({
 
                 // immediate ui effect ke liye  all notes wala  array bhi update karenge abhi 
 
-            //   find karo wo  index wlala notes jo chnage hua hai unko kahali immediate change karo ui ke liye 
+                //   find karo wo  index wlala notes jo chnage hua hai unko kahali immediate change karo ui ke liye 
 
-                const index =  state.notes.findIndex((note)=>note._id === updatedNote._id);
+                const index = state.notes.findIndex((note) => note._id === updatedNote._id);
 
-                if(index != -1){
+                if (index != -1) {
                     state.notes[index] = updatedNote;
                 }
 
 
 
             })
-            .addCase(togglePinnote.rejected,(state,action)=>{
-                state.togglePinNote.loading=false;
-                state.togglePinNote.error=action.payload;
+            .addCase(togglePinnote.rejected, (state, action) => {
+                state.togglePinNote.loading = false;
+                state.togglePinNote.error = action.payload;
             })
 
             // delete note 
 
 
-            .addCase(deleteNote.pending,(state)=>{
-                state.deletenote.loading=true;
-                state.deletenote.error=null;
+            .addCase(deleteNote.pending, (state) => {
+                state.deletenote.loading = true;
+                state.deletenote.error = null;
             })
-            .addCase(deleteNote.fulfilled,(state)=>{
-                state.deletenote.loading=false;                 //yha delete note me  manual update nhi karenege kuki  delete karn eke baad automatically wo all notes page pr chalaa jaega smjhe  wha apane aap hi usfefect se new list fetch hog to dleeted notes shso w nhi hog a smjhe 
-                state.deletenote.error=null;
+            .addCase(deleteNote.fulfilled, (state) => {
+                state.deletenote.loading = false;                 //yha delete note me  manual update nhi karenege kuki  delete karn eke baad automatically wo all notes page pr chalaa jaega smjhe  wha apane aap hi usfefect se new list fetch hog to dleeted notes shso w nhi hog a smjhe 
+                state.deletenote.error = null;
             })
-            .addCase(deleteNote.rejected,(state,action)=>{
-                state.deletenote.loading=false;
+            .addCase(deleteNote.rejected, (state, action) => {
+                state.deletenote.loading = false;
                 state.deletenote.error = action.payload;
+
+            })
+
+            .addCase(updateNote.pending,(state)=>{
+                state.updatenote.loading=true;
+                state.updatenote.error=null;
+
+            })
+            .addCase(updateNote.fulfilled,(state,action)=>{
+
+                state.updatenote.loading=false;
+                state.updatenote.error=null;
+
+                const updatedNote =  action.payload.data ;  //jo naya data aaya usko  selcted notes ke baarara bar kar do
+                
+                state.selectedNote= updatedNote;
+
+                const index = state.notes.findIndex((note) => note._id === updatedNote._id);
+
+                if(index  != -1){
+                    state.notes[index] = updatedNote;
+                }
+
+            })
+
+            .addCase(updateNote.rejected,(state,action)=>{
+                state.updatenote.loading = false;
+                state.updatenote.error = action.payload;
                 
             })
 
