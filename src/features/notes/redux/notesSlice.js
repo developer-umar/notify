@@ -69,18 +69,18 @@ export const deleteNote = createAsyncThunk("notes/deletenote", async (noteId, th
 })
 // update note api 
 
-export const updateNote = createAsyncThunk("notes/update-notes", async (noteId, noteData) => {
-
-    try {
-
-        return await updateNoteApi(noteId, noteData);
-
-    } catch (error) {
-
-        return thunkAPI.rejectWithValue(error.response?.data?.message || "Something went wrong");
+export const updateNote = createAsyncThunk(
+    "notes/update-notes",
+    async ({ noteId, noteData },thunkAPI) => {
+        try {
+            return await updateNoteApi(noteId, noteData);
+        } catch (error) {
+            return thunkAPI.rejectWithValue(
+                error.response?.data?.message || "Something went wrong"
+            );
+        }
     }
-
-})
+);
 
 
 
@@ -233,32 +233,32 @@ const noteSlice = createSlice({
 
             })
 
-            .addCase(updateNote.pending,(state)=>{
-                state.updatenote.loading=true;
-                state.updatenote.error=null;
+            .addCase(updateNote.pending, (state) => {
+                state.updatenote.loading = true;
+                state.updatenote.error = null;
 
             })
-            .addCase(updateNote.fulfilled,(state,action)=>{
+            .addCase(updateNote.fulfilled, (state, action) => {
 
-                state.updatenote.loading=false;
-                state.updatenote.error=null;
+                state.updatenote.loading = false;
+                state.updatenote.error = null;
 
-                const updatedNote =  action.payload.data ;  //jo naya data aaya usko  selcted notes ke baarara bar kar do
-                
-                state.selectedNote= updatedNote;
+                const updatedNote = action.payload.data;  //jo naya data aaya usko  selcted notes ke baarara bar kar do
+
+                state.selectedNote = updatedNote;
 
                 const index = state.notes.findIndex((note) => note._id === updatedNote._id);
 
-                if(index  != -1){
+                if (index != -1) {
                     state.notes[index] = updatedNote;
                 }
 
             })
 
-            .addCase(updateNote.rejected,(state,action)=>{
+            .addCase(updateNote.rejected, (state, action) => {
                 state.updatenote.loading = false;
                 state.updatenote.error = action.payload;
-                
+
             })
 
 
