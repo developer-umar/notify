@@ -52,9 +52,12 @@ const NoteDetails = () => {
     }
 
     const handleUpdateNote = async () => {
+        console.log(noteId);
+        console.log(typeof(noteId));
+        console.log(editData);
         try {
 
-            await dispatch(updateNote({ noteId, noteData: editData })).unwrap();
+            await dispatch(updateNote({noteId, noteData: editData })).unwrap();
             setIsEditing(false);
 
         } catch (error) {
