@@ -20,7 +20,7 @@ export const  getNoteByIdApi  = async(noteId)=>{
     return response.data;
 }
 
-export const updateNoteApi  = async(noteId,noteData)=>{
+export const updateNoteApi  = async({noteId,noteData})=>{
 
     const response = await api.patch(`/notes/update-notes/${noteId}`,noteData);
     return response.data;
