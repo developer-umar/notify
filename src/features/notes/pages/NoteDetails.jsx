@@ -30,7 +30,7 @@ const NoteDetails = () => {
         try {
       const updatedNote = await dispatch(togglePinnote(noteId)).unwrap();
 
-      if(updateNote.data.isPinned === true){
+      if(updatedNote.data.isPinned === true){
         setPinMessage("Note Pinned sucesfully ");
       }else{
         setPinMessage("Note unPinned  sucesfully ");
