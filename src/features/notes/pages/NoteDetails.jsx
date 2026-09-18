@@ -10,6 +10,7 @@ const NoteDetails = () => {
     const [successDeleted, setsuccessDeleted] = useState(false); //state for handling popup notification after delete
     const [isEditing, setIsEditing] = useState(false);
     const [editData, setEditData] = useState({ title: "", content: "" });
+    const [sucessEdit ,setSuccessEdit] = useState(false);  //edit pop up handle karne ke liye 
     const { noteId } = useParams();
     const navigate = useNavigate();
     const { selectedNote, getNotebyId: { loading, error }, togglePinNote: { loading: pinLoading, error: pinError }, deletenote: { loading: deleteLoading, error: deleteError }, updatenote: { loading: updateLoading, error: updateError } } = useSelector((state) => state.notes);
@@ -52,13 +53,22 @@ const NoteDetails = () => {
     }
 
     const handleUpdateNote = async () => {
-        console.log(noteId);
-        console.log(typeof(noteId));
-        console.log(editData);
+        // console.log(noteId);
+        // console.log(typeof(noteId));
+        // console.log(editData);
         try {
 
             await dispatch(updateNote({noteId, noteData: editData })).unwrap();
             setIsEditing(false);
+            setSuccessEdit(true);       //notification popup ko true kar rahe 
+
+            // thodi der baad popup chala jaega isliye  ste timoutme false karenge 
+
+            setTimeout(()=>{
+
+                setSuccessEdit(false);  // taaki notification chala jaae 
+
+            },1500)
 
         } catch (error) {
             console.log(error);
@@ -116,6 +126,15 @@ const NoteDetails = () => {
                         Note deleted successfully
                     </p>
                 </div>
+            )}
+
+            {
+                showUpdateSuccess && (
+            <div className="fixed top-5 right-5 bg-white border shadow-lg rounded-lg px-5 py-3 z-50">
+                <p className="font-medium text-green-600">
+                    Note updated successfully
+                </p>
+            </div> 
             )}
 
             <div className="max-w-3xl mx-auto p-4">
