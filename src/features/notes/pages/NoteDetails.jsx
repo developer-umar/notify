@@ -12,7 +12,7 @@ const NoteDetails = () => {
     const [editData, setEditData] = useState({ title: "", content: "" });
     const [sucessEdit, setSuccessEdit] = useState(false);  //edit pop up handle karne ke liye 
     const [successDeleted, setsuccessDeleted] = useState(false); //state for handling popup notification after delete
-    const [sucessPinned, setsucessPinned] = useState(false);
+    const [pinMessage ,setPinMessage] = ("");   // 2 messaage handle karna hai isliye  
     const { noteId } = useParams();
     const navigate = useNavigate();
     const { selectedNote, getNotebyId: { loading, error }, togglePinNote: { loading: pinLoading, error: pinError }, deletenote: { loading: deleteLoading, error: deleteError }, updatenote: { loading: updateLoading, error: updateError } } = useSelector((state) => state.notes);
@@ -25,23 +25,31 @@ const NoteDetails = () => {
 
     }, [dispatch, noteId]);
 
-    const handlePintoggle = () => {
+    const handlePintoggle =  async() => {
+
         try {
-            dispatch(togglePinnote(noteId)).unwrap();
-            setsucessPinned(true);
-            console.log("pinned note sucesfully  ");
+      const updatedNote = await dispatch(togglePinnote(noteId)).unwrap();
 
-            setTimeout(() => {
-                setsucessPinned(false);
+      if(updateNote.data.isPinned === true){
+        setPinMessage("Note Pinned sucesfully ");
+      }else{
+        setPinMessage("Note unPinned  sucesfully ");
+      }
 
-            }, 2000);
+      setTimeout(()=>{
+        setPinMessage("");
+      },2000)
 
-
-
-
+            
         } catch (error) {
             console.log(error);
+            
         }
+        
+
+          
+
+       
 
 
 
@@ -158,10 +166,10 @@ const NoteDetails = () => {
 
             {/* pinned notes ke liye jsx popup  notification  */}
 
-            {sucessPinned && (
+            {pinMessage && (
                 <div className="fixed top-5 right-5 bg-white border shadow-lg rounded-lg px-5 py-3 z-50">
                     <p className="font-medium text-green-600">
-                        Note pinned  successfully;
+                       {pinMessage}
                     </p>
                 </div>
             )}
