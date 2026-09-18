@@ -129,7 +129,7 @@ const NoteDetails = () => {
             )}
 
             {
-                showUpdateSuccess && (
+                sucessEdit && (
             <div className="fixed top-5 right-5 bg-white border shadow-lg rounded-lg px-5 py-3 z-50">
                 <p className="font-medium text-green-600">
                     Note updated successfully
