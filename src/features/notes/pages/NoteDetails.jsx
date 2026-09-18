@@ -7,10 +7,12 @@ import { BsBookmarkFill } from 'react-icons/bs';
 import { FiBookmark } from 'react-icons/fi';
 
 const NoteDetails = () => {
-    const [successDeleted, setsuccessDeleted] = useState(false); //state for handling popup notification after delete
+
     const [isEditing, setIsEditing] = useState(false);
     const [editData, setEditData] = useState({ title: "", content: "" });
-    const [sucessEdit ,setSuccessEdit] = useState(false);  //edit pop up handle karne ke liye 
+    const [sucessEdit, setSuccessEdit] = useState(false);  //edit pop up handle karne ke liye 
+    const [successDeleted, setsuccessDeleted] = useState(false); //state for handling popup notification after delete
+    const [sucessPinned, setsucessPinned] = useState(false);
     const { noteId } = useParams();
     const navigate = useNavigate();
     const { selectedNote, getNotebyId: { loading, error }, togglePinNote: { loading: pinLoading, error: pinError }, deletenote: { loading: deleteLoading, error: deleteError }, updatenote: { loading: updateLoading, error: updateError } } = useSelector((state) => state.notes);
@@ -24,9 +26,26 @@ const NoteDetails = () => {
     }, [dispatch, noteId]);
 
     const handlePintoggle = () => {
+        try {
+            dispatch(togglePinnote(noteId)).unwrap();
+            setsucessPinned(true);
+            console.log("pinned note sucesfully  ");
 
-        dispatch(togglePinnote(noteId));
-        console.log("handle toggle pinned ")
+            setTimeout(() => {
+                setsucessPinned(false);
+
+            }, 2000);
+
+
+
+
+        } catch (error) {
+            console.log(error);
+        }
+
+
+
+
 
     }
     // edit handles
@@ -58,17 +77,17 @@ const NoteDetails = () => {
         // console.log(editData);
         try {
 
-            await dispatch(updateNote({noteId, noteData: editData })).unwrap();
+            await dispatch(updateNote({ noteId, noteData: editData })).unwrap();
             setIsEditing(false);
             setSuccessEdit(true);       //notification popup ko true kar rahe 
 
             // thodi der baad popup chala jaega isliye  ste timoutme false karenge 
 
-            setTimeout(()=>{
+            setTimeout(() => {
 
                 setSuccessEdit(false);  // taaki notification chala jaae 
 
-            },1500)
+            }, 1500)
 
         } catch (error) {
             console.log(error);
@@ -118,7 +137,7 @@ const NoteDetails = () => {
 
 
     return (
-
+        //    delte ke liye jsx    notifiation popup 
         <div>
             {successDeleted && (
                 <div className="fixed top-5 right-5 bg-white border shadow-lg rounded-lg px-5 py-3">
@@ -127,14 +146,24 @@ const NoteDetails = () => {
                     </p>
                 </div>
             )}
-
+            {/* edit ke liye jsx  notification popup  */}
             {
                 sucessEdit && (
-            <div className="fixed top-5 right-5 bg-white border shadow-lg rounded-lg px-5 py-3 z-50">
-                <p className="font-medium text-green-600">
-                    Note updated successfully
-                </p>
-            </div> 
+                    <div className="fixed top-5 right-5 bg-white border shadow-lg rounded-lg px-5 py-3 z-50">
+                        <p className="font-medium text-green-600">
+                            Note updated successfully
+                        </p>
+                    </div>
+                )}
+
+            {/* pinned notes ke liye jsx popup  notification  */}
+
+            {sucessPinned && (
+                <div className="fixed top-5 right-5 bg-white border shadow-lg rounded-lg px-5 py-3 z-50">
+                    <p className="font-medium text-green-600">
+                        Note pinned  successfully;
+                    </p>
+                </div>
             )}
 
             <div className="max-w-3xl mx-auto p-4">
