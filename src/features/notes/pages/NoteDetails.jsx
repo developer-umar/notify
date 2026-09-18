@@ -12,7 +12,7 @@ const NoteDetails = () => {
     const [editData, setEditData] = useState({ title: "", content: "" });
     const [sucessEdit, setSuccessEdit] = useState(false);  //edit pop up handle karne ke liye 
     const [successDeleted, setsuccessDeleted] = useState(false); //state for handling popup notification after delete
-    const [pinMessage ,setPinMessage] = ("");   // 2 messaage handle karna hai isliye  
+    const [pinMessage ,setPinMessage] = useState("");   // 2 messaage handle karna hai isliye  
     const { noteId } = useParams();
     const navigate = useNavigate();
     const { selectedNote, getNotebyId: { loading, error }, togglePinNote: { loading: pinLoading, error: pinError }, deletenote: { loading: deleteLoading, error: deleteError }, updatenote: { loading: updateLoading, error: updateError } } = useSelector((state) => state.notes);
